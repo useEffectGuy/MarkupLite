@@ -1,0 +1,1599 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>微信公众号排版模板</title>
+<style>
+/* 基础重置 */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { 
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: #f5f5f5; 
+    padding: 20px;
+}
+
+/* 公众号内容区域 */
+.mp-container {
+    max-width: 677px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px 16px;
+    border-radius: 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+/* ===== 标题样式 ===== */
+
+/* 主标题 - 渐变背景 */
+.mp-title-main {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a1a1a;
+    line-height: 1.6;
+    padding: 20px 0 16px;
+    border-bottom: 3px solid #07c160;
+    margin-bottom: 20px;
+    position: relative;
+}
+.mp-title-main::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, #07c160, #00b578);
+}
+
+/* 副标题 - 左侧边框 */
+.mp-title-sub {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    line-height: 1.5;
+    padding: 12px 0 12px 16px;
+    border-left: 4px solid #07c160;
+    background: linear-gradient(90deg, rgba(7,193,96,0.06) 0%, transparent 100%);
+    margin: 24px 0 16px;
+}
+
+/* 小标题 - 序号样式 */
+.mp-title-small {
+    font-size: 16px;
+    font-weight: 600;
+    color: #07c160;
+    line-height: 1.5;
+    margin: 20px 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.mp-title-small .num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background: #07c160;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+/* ===== 正文样式 ===== */
+.mp-paragraph {
+    font-size: 16px;
+    color: #333;
+    line-height: 1.8;
+    text-align: justify;
+    margin-bottom: 16px;
+    text-indent: 2em;
+}
+
+.mp-paragraph-no-indent {
+    font-size: 16px;
+    color: #333;
+    line-height: 1.8;
+    text-align: justify;
+    margin-bottom: 16px;
+}
+
+/* 强调文字 */
+.mp-highlight {
+    color: #fa5151;
+    font-weight: 600;
+}
+
+.mp-strong {
+    background: linear-gradient(180deg, transparent 60%, rgba(7,193,96,0.3) 60%);
+    padding: 0 2px;
+}
+
+/* ===== 引用样式 ===== */
+.mp-quote {
+    background: #f7f7f7;
+    border-left: 4px solid #07c160;
+    padding: 16px 20px;
+    margin: 20px 0;
+    color: #666;
+    font-size: 15px;
+    line-height: 1.8;
+    border-radius: 0 4px 4px 0;
+}
+.mp-quote .quote-source {
+    text-align: right;
+    font-size: 14px;
+    color: #999;
+    margin-top: 8px;
+}
+
+/* 金句引用 */
+.mp-quote-golden {
+    background: linear-gradient(135deg, #fff9e6 0%, #fff5d6 100%);
+    border: 1px solid #ffd666;
+    border-left: 4px solid #faad14;
+    padding: 20px;
+    margin: 20px 0;
+    text-align: center;
+    font-size: 17px;
+    color: #d48806;
+    line-height: 1.8;
+    border-radius: 4px;
+    position: relative;
+}
+.mp-quote-golden::before,
+.mp-quote-golden::after {
+    content: '"';
+    font-size: 36px;
+    color: #ffd666;
+    position: absolute;
+    line-height: 1;
+}
+.mp-quote-golden::before {
+    top: 8px;
+    left: 12px;
+}
+.mp-quote-golden::after {
+    bottom: -8px;
+    right: 12px;
+}
+
+/* ===== 列表样式 ===== */
+.mp-list {
+    margin: 16px 0;
+    padding-left: 0;
+    list-style: none;
+}
+.mp-list li {
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: 12px;
+    font-size: 16px;
+    color: #333;
+    line-height: 1.8;
+}
+.mp-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 8px;
+    height: 8px;
+    background: #07c160;
+    border-radius: 50%;
+}
+
+/* 数字列表 */
+.mp-list-num {
+    counter-reset: item;
+    margin: 16px 0;
+    padding-left: 0;
+    list-style: none;
+}
+.mp-list-num li {
+    counter-increment: item;
+    position: relative;
+    padding-left: 32px;
+    margin-bottom: 12px;
+    font-size: 16px;
+    color: #333;
+    line-height: 1.8;
+}
+.mp-list-num li::before {
+    content: counter(item);
+    position: absolute;
+    left: 0;
+    top: 2px;
+    width: 22px;
+    height: 22px;
+    background: #07c160;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+}
+
+/* ===== 卡片样式 ===== */
+.mp-card {
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.mp-card-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.mp-card-title .icon {
+    width: 20px;
+    height: 20px;
+    background: #07c160;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 12px;
+}
+.mp-card-content {
+    font-size: 15px;
+    color: #555;
+    line-height: 1.8;
+}
+
+/* 提示卡片 */
+.mp-card-tip {
+    background: linear-gradient(135deg, #e6fffb 0%, #f0fff4 100%);
+    border: 1px solid #b7eb8f;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 20px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+.mp-card-tip .tip-icon {
+    width: 24px;
+    height: 24px;
+    background: #52c41a;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+.mp-card-tip .tip-text {
+    font-size: 15px;
+    color: #389e0d;
+    line-height: 1.8;
+}
+
+/* 警告卡片 */
+.mp-card-warn {
+    background: linear-gradient(135deg, #fff2f0 0%, #fff7e6 100%);
+    border: 1px solid #ffbb96;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 20px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+.mp-card-warn .warn-icon {
+    width: 24px;
+    height: 24px;
+    background: #fa8c16;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+.mp-card-warn .warn-text {
+    font-size: 15px;
+    color: #d46b08;
+    line-height: 1.8;
+}
+
+/* ===== 分割线 ===== */
+.mp-divider {
+    display: flex;
+    align-items: center;
+    margin: 32px 0;
+    color: #999;
+    font-size: 14px;
+}
+.mp-divider::before,
+.mp-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #ddd, transparent);
+}
+.mp-divider span {
+    padding: 0 16px;
+}
+
+/* 装饰分割线 */
+.mp-divider-fancy {
+    text-align: center;
+    margin: 32px 0;
+    position: relative;
+}
+.mp-divider-fancy::before {
+    content: '✦';
+    color: #07c160;
+    font-size: 20px;
+    background: #fff;
+    padding: 0 16px;
+    position: relative;
+    z-index: 1;
+}
+.mp-divider-fancy::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #07c160, transparent);
+    z-index: 0;
+}
+
+/* ===== 图片样式 ===== */
+.mp-img {
+    width: 100%;
+    border-radius: 8px;
+    margin: 16px 0;
+    display: block;
+}
+.mp-img-caption {
+    text-align: center;
+    font-size: 14px;
+    color: #999;
+    margin-top: 8px;
+    margin-bottom: 16px;
+}
+
+/* 图片卡片 */
+.mp-img-card {
+    margin: 20px 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+.mp-img-card img {
+    width: 100%;
+    display: block;
+}
+.mp-img-card .caption {
+    padding: 12px 16px;
+    background: #fafafa;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+}
+
+/* ===== 表格样式 ===== */
+.mp-table-wrap {
+    overflow-x: auto;
+    margin: 20px 0;
+    border-radius: 8px;
+    border: 1px solid #e8e8e8;
+}
+.mp-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    min-width: 500px;
+}
+.mp-table thead {
+    background: #f6ffed;
+}
+.mp-table th {
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 600;
+    color: #389e0d;
+    border-bottom: 2px solid #b7eb8f;
+    white-space: nowrap;
+}
+.mp-table td {
+    padding: 12px 16px;
+    color: #555;
+    border-bottom: 1px solid #f0f0f0;
+}
+.mp-table tbody tr:hover {
+    background: #fafafa;
+}
+.mp-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* ===== 代码块 ===== */
+.mp-code {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    padding: 16px 20px;
+    border-radius: 8px;
+    font-family: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    overflow-x: auto;
+    margin: 16px 0;
+}
+.mp-code .comment { color: #6a9955; }
+.mp-code .keyword { color: #569cd6; }
+.mp-code .string { color: #ce9178; }
+.mp-code .function { color: #dcdcaa; }
+
+/* ===== 底部样式 ===== */
+.mp-footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    text-align: center;
+}
+.mp-footer-logo {
+    width: 48px;
+    height: 48px;
+    background: #07c160;
+    border-radius: 50%;
+    margin: 0 auto 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 20px;
+}
+.mp-footer-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 4px;
+}
+.mp-footer-desc {
+    font-size: 13px;
+    color: #999;
+    margin-bottom: 16px;
+}
+.mp-footer-tags {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.mp-footer-tags span {
+    padding: 4px 12px;
+    background: #f0f0f0;
+    border-radius: 12px;
+    font-size: 12px;
+    color: #666;
+}
+
+/* 引导关注 */
+.mp-follow {
+    background: linear-gradient(135deg, #f6ffed 0%, #e6fffb 100%);
+    border: 1px dashed #b7eb8f;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 32px 0;
+    text-align: center;
+}
+.mp-follow-text {
+    font-size: 16px;
+    color: #389e0d;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+.mp-follow-sub {
+    font-size: 14px;
+    color: #666;
+}
+
+/* ===== 时间轴 ===== */
+.mp-timeline {
+    position: relative;
+    padding-left: 24px;
+    margin: 20px 0;
+}
+.mp-timeline::before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, #07c160, #b7eb8f);
+}
+.mp-timeline-item {
+    position: relative;
+    padding-bottom: 20px;
+}
+.mp-timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -22px;
+    top: 4px;
+    width: 12px;
+    height: 12px;
+    background: #fff;
+    border: 3px solid #07c160;
+    border-radius: 50%;
+}
+.mp-timeline-time {
+    font-size: 13px;
+    color: #07c160;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+.mp-timeline-content {
+    font-size: 15px;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* ===== 两栏布局 ===== */
+.mp-two-col {
+    display: flex;
+    gap: 16px;
+    margin: 20px 0;
+}
+.mp-two-col .col {
+    flex: 1;
+    min-width: 0;
+}
+@media (max-width: 480px) {
+    .mp-two-col { flex-direction: column; }
+}
+
+/* ===== 标签样式 ===== */
+.mp-tag {
+    display: inline-block;
+    padding: 2px 10px;
+    background: #f6ffed;
+    border: 1px solid #b7eb8f;
+    border-radius: 4px;
+    font-size: 13px;
+    color: #389e0d;
+    margin: 0 4px 4px 0;
+}
+.mp-tag-hot {
+    background: #fff2f0;
+    border-color: #ffbb96;
+    color: #cf1322;
+}
+
+/* ===== 阅读数据 ===== */
+.mp-read-data {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    padding: 16px 0;
+    margin: 20px 0;
+    border-top: 1px solid #f0f0f0;
+    border-bottom: 1px solid #f0f0f0;
+}
+.mp-read-data .item {
+    text-align: center;
+}
+.mp-read-data .num {
+    font-size: 20px;
+    font-weight: 700;
+    color: #07c160;
+}
+.mp-read-data .label {
+    font-size: 12px;
+    color: #999;
+    margin-top: 4px;
+}
+
+/* ===== 作者信息 ===== */
+.mp-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background: #fafafa;
+    border-radius: 8px;
+    margin: 20px 0;
+}
+.mp-author-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #07c160;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+.mp-author-info {
+    flex: 1;
+    min-width: 0;
+}
+.mp-author-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+.mp-author-bio {
+    font-size: 13px;
+    color: #999;
+    margin-top: 2px;
+}
+
+/* ===== 互动按钮 ===== */
+.mp-actions {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin: 24px 0;
+}
+.mp-action-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: #999;
+    font-size: 12px;
+    cursor: pointer;
+}
+.mp-action-btn .icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    transition: all 0.3s;
+}
+.mp-action-btn:hover .icon {
+    background: #07c160;
+    color: #fff;
+}
+
+/* ===== 首字下沉 ===== */
+.mp-drop-cap::first-letter {
+    float: left;
+    font-size: 48px;
+    line-height: 1;
+    padding-right: 8px;
+    padding-top: 4px;
+    color: #07c160;
+    font-weight: 700;
+}
+
+/* ===== 折叠面板 ===== */
+.mp-collapse {
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+    margin: 16px 0;
+    overflow: hidden;
+}
+.mp-collapse-header {
+    padding: 14px 16px;
+    background: #fafafa;
+    font-size: 15px;
+    font-weight: 600;
+    color: #333;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.mp-collapse-body {
+    padding: 16px;
+    font-size: 15px;
+    color: #555;
+    line-height: 1.8;
+    border-top: 1px solid #f0f0f0;
+}
+
+/* ===== 进度条 ===== */
+.mp-progress {
+    margin: 12px 0;
+}
+.mp-progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 6px;
+}
+.mp-progress-bar {
+    height: 8px;
+    background: #f0f0f0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+.mp-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #07c160, #52c41a);
+    border-radius: 4px;
+    transition: width 0.3s;
+}
+
+/* ===== 问答样式 ===== */
+.mp-qa {
+    margin: 16px 0;
+}
+.mp-qa-q {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+    display: flex;
+    gap: 8px;
+}
+.mp-qa-q .q-mark {
+    width: 24px;
+    height: 24px;
+    background: #fa5151;
+    color: #fff;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+.mp-qa-a {
+    font-size: 15px;
+    color: #555;
+    line-height: 1.8;
+    padding-left: 32px;
+    display: flex;
+    gap: 8px;
+}
+.mp-qa-a .a-mark {
+    width: 24px;
+    height: 24px;
+    background: #07c160;
+    color: #fff;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+/* ===== 顶部封面区域 ===== */
+.mp-cover {
+    position: relative;
+    margin: -20px -16px 20px;
+    height: 200px;
+    background: linear-gradient(135deg, #07c160 0%, #00b578 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: #fff;
+    text-align: center;
+}
+.mp-cover-title {
+    font-size: 24px;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.mp-cover-sub {
+    font-size: 14px;
+    opacity: 0.9;
+    margin-top: 8px;
+}
+.mp-cover-date {
+    position: absolute;
+    bottom: 12px;
+    right: 16px;
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+/* ===== 音乐播放器样式 ===== */
+.mp-music {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: #f6ffed;
+    border-radius: 8px;
+    margin: 16px 0;
+}
+.mp-music-icon {
+    width: 40px;
+    height: 40px;
+    background: #07c160;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 18px;
+    animation: pulse 2s infinite;
+}
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+.mp-music-info {
+    flex: 1;
+}
+.mp-music-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+}
+.mp-music-artist {
+    font-size: 12px;
+    color: #999;
+    margin-top: 2px;
+}
+
+/* ===== 投票样式 ===== */
+.mp-vote {
+    background: #fafafa;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+}
+.mp-vote-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 16px;
+    text-align: center;
+}
+.mp-vote-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: #fff;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    border: 1px solid #e8e8e8;
+    cursor: pointer;
+}
+.mp-vote-option:hover {
+    border-color: #07c160;
+}
+.mp-vote-option .radio {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ddd;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+.mp-vote-option:hover .radio {
+    border-color: #07c160;
+}
+
+/* ===== 打赏样式 ===== */
+.mp-reward {
+    text-align: center;
+    padding: 24px 0;
+    margin: 24px 0;
+    border-top: 1px dashed #ddd;
+    border-bottom: 1px dashed #ddd;
+}
+.mp-reward-text {
+    font-size: 14px;
+    color: #999;
+    margin-bottom: 12px;
+}
+.mp-reward-btn {
+    display: inline-block;
+    padding: 8px 24px;
+    background: #fa5151;
+    color: #fff;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* ===== 相关推荐 ===== */
+.mp-related {
+    margin: 24px 0;
+}
+.mp-related-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 12px;
+    padding-left: 12px;
+    border-left: 3px solid #07c160;
+}
+.mp-related-item {
+    display: flex;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+.mp-related-item:last-child {
+    border-bottom: none;
+}
+.mp-related-thumb {
+    width: 80px;
+    height: 60px;
+    background: #f0f0f0;
+    border-radius: 4px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ccc;
+    font-size: 12px;
+}
+.mp-related-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.mp-related-info .title {
+    font-size: 15px;
+    color: #333;
+    line-height: 1.4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.mp-related-info .meta {
+    font-size: 12px;
+    color: #999;
+}
+
+/* ===== 小程序卡片 ===== */
+.mp-miniprogram {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+    margin: 16px 0;
+}
+.mp-miniprogram-icon {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #07c160, #00b578);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+.mp-miniprogram-info {
+    flex: 1;
+}
+.mp-miniprogram-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: #333;
+}
+.mp-miniprogram-desc {
+    font-size: 12px;
+    color: #999;
+    margin-top: 2px;
+}
+.mp-miniprogram-arrow {
+    color: #ccc;
+    font-size: 18px;
+}
+
+/* ===== 视频容器 ===== */
+.mp-video {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    margin: 16px 0;
+    background: #000;
+}
+.mp-video iframe,
+.mp-video video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* ===== 表情包样式 ===== */
+.mp-emoji {
+    font-size: 24px;
+    vertical-align: middle;
+    margin: 0 2px;
+}
+
+/* ===== 特殊文字效果 ===== */
+.mp-gradient-text {
+    background: linear-gradient(90deg, #07c160, #00b578);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+}
+
+/* ===== 引导阅读原文 ===== */
+.mp-read-more {
+    text-align: center;
+    padding: 20px;
+    margin: 20px 0;
+    background: linear-gradient(135deg, #f6ffed, #e6fffb);
+    border-radius: 8px;
+}
+.mp-read-more-text {
+    font-size: 15px;
+    color: #389e0d;
+    margin-bottom: 8px;
+}
+.mp-read-more-btn {
+    display: inline-block;
+    padding: 8px 24px;
+    background: #07c160;
+    color: #fff;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* ===== 留言样式 ===== */
+.mp-comment {
+    display: flex;
+    gap: 12px;
+    padding: 16px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+.mp-comment-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #e8e8e8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+.mp-comment-body {
+    flex: 1;
+}
+.mp-comment-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #576b95;
+}
+.mp-comment-text {
+    font-size: 14px;
+    color: #333;
+    line-height: 1.6;
+    margin-top: 4px;
+}
+.mp-comment-meta {
+    font-size: 12px;
+    color: #999;
+    margin-top: 4px;
+}
+
+/* ===== 精选留言置顶 ===== */
+.mp-comment-featured {
+    background: #fffbe6;
+    border: 1px solid #ffe58f;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+}
+.mp-comment-featured .label {
+    display: inline-block;
+    padding: 2px 8px;
+    background: #faad14;
+    color: #fff;
+    font-size: 12px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+
+/* ===== 广告位 ===== */
+.mp-ad {
+    margin: 20px 0;
+    padding: 16px;
+    background: #fafafa;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px dashed #ddd;
+}
+.mp-ad-label {
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 8px;
+}
+.mp-ad-content {
+    font-size: 14px;
+    color: #666;
+}
+
+/* ===== 打卡样式 ===== */
+.mp-checkin {
+    text-align: center;
+    padding: 20px;
+    margin: 20px 0;
+    background: linear-gradient(135deg, #fff7e6, #fffbe6);
+    border-radius: 8px;
+}
+.mp-checkin-text {
+    font-size: 16px;
+    color: #d48806;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+.mp-checkin-days {
+    font-size: 36px;
+    font-weight: 700;
+    color: #faad14;
+}
+.mp-checkin-days span {
+    font-size: 14px;
+    color: #999;
+    font-weight: 400;
+}
+
+/* ===== 引导在看 ===== */
+.mp-wow {
+    text-align: center;
+    padding: 16px;
+    margin: 20px 0;
+}
+.mp-wow-text {
+    font-size: 15px;
+    color: #666;
+}
+.mp-wow-icon {
+    font-size: 32px;
+    margin-top: 8px;
+}
+
+/* ===== 底部二维码区域 ===== */
+.mp-qr-section {
+    text-align: center;
+    padding: 24px 0;
+    margin-top: 32px;
+    border-top: 2px solid #f0f0f0;
+}
+.mp-qr-box {
+    width: 160px;
+    height: 160px;
+    background: #f5f5f5;
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+    margin: 0 auto 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ccc;
+    font-size: 14px;
+}
+.mp-qr-text {
+    font-size: 14px;
+    color: #666;
+}
+
+/* ===== 排版辅助 ===== */
+.mp-center { text-align: center; }
+.mp-right { text-align: right; }
+.mp-bold { font-weight: 700; }
+.mp-italic { font-style: italic; }
+.mp-strike { text-decoration: line-through; color: #999; }
+.mp-small { font-size: 14px; color: #999; }
+.mp-large { font-size: 18px; }
+
+/* 行内代码 */
+.mp-code-inline {
+    background: #f5f5f5;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: monospace;
+    font-size: 14px;
+    color: #fa5151;
+}
+
+/* 上标下标 */
+.mp-sup { font-size: 12px; vertical-align: super; }
+.mp-sub { font-size: 12px; vertical-align: sub; }
+
+/* ===== 响应式 ===== */
+@media (max-width: 480px) {
+    .mp-container { padding: 16px 12px; }
+    .mp-title-main { font-size: 20px; }
+    .mp-title-sub { font-size: 16px; }
+    .mp-paragraph { font-size: 15px; }
+}
+</style>
+</head>
+<body>
+
+<div class="mp-container">
+
+    <!-- 封面区域 -->
+    <div class="mp-cover">
+        <div class="mp-cover-title">微信公众号排版模板</div>
+        <div class="mp-cover-sub">30+ 精美组件，一键复制即用</div>
+        <div class="mp-cover-date">2026年5月7日</div>
+    </div>
+
+    <!-- 作者信息 -->
+    <div class="mp-author">
+        <div class="mp-author-avatar">K</div>
+        <div class="mp-author-info">
+            <div class="mp-author-name">Kimi设计工作室</div>
+            <div class="mp-author-bio">专注公众号排版设计 · 让内容更有温度</div>
+        </div>
+    </div>
+
+    <!-- 阅读数据 -->
+    <div class="mp-read-data">
+        <div class="item">
+            <div class="num">12.5万</div>
+            <div class="label">阅读</div>
+        </div>
+        <div class="item">
+            <div class="num">3,280</div>
+            <div class="label">在看</div>
+        </div>
+        <div class="item">
+            <div class="num">892</div>
+            <div class="label">留言</div>
+        </div>
+    </div>
+
+    <!-- 主标题 -->
+    <h1 class="mp-title-main">一、标题系统</h1>
+
+    <p class="mp-paragraph mp-drop-cap">这是一个带首字下沉效果的正文段落。微信公众号的排版直接影响读者的阅读体验，好的排版能让内容更具吸引力，提升完读率和互动率。</p>
+
+    <h2 class="mp-title-sub">1.1 副标题样式</h2>
+
+    <p class="mp-paragraph">副标题采用左侧绿色边框加渐变背景的设计，层次分明，视觉引导性强。适合作为文章中的二级标题使用。</p>
+
+    <h3 class="mp-title-small"><span class="num">1</span>小标题带序号</h3>
+
+    <p class="mp-paragraph">小标题配合圆形序号，适合步骤说明、要点罗列等场景。序号采用微信绿背景，白色文字，醒目且统一。</p>
+
+    <h3 class="mp-title-small"><span class="num">2</span>强调与标记</h3>
+
+    <p class="mp-paragraph">正文支持多种<span class="mp-highlight">高亮强调</span>方式，以及<span class="mp-strong">下划线标记</span>效果，方便突出关键信息。</p>
+
+    <!-- 分割线 -->
+    <div class="mp-divider"><span>·</span></div>
+
+    <h1 class="mp-title-main">二、引用与卡片</h1>
+
+    <!-- 普通引用 -->
+    <div class="mp-quote">
+        设计不仅仅是外观和感觉，设计是产品运作的方式。好的设计是显而易见的，伟大的设计是透明的。
+        <div class="quote-source">—— 史蒂夫·乔布斯</div>
+    </div>
+
+    <!-- 金句引用 -->
+    <div class="mp-quote-golden">
+        内容为王，排版为后。再好的内容，没有合适的排版，也难以打动读者。
+    </div>
+
+    <!-- 提示卡片 -->
+    <div class="mp-card-tip">
+        <div class="tip-icon">✓</div>
+        <div class="tip-text">温馨提示：所有样式均适配微信公众号编辑器，直接复制 HTML 代码即可使用。建议在电脑端编辑，预览后再发布。</div>
+    </div>
+
+    <!-- 警告卡片 -->
+    <div class="mp-card-warn">
+        <div class="warn-icon">!</div>
+        <div class="warn-text">注意：部分高级样式（如 CSS 动画）在公众号中可能受限，建议以静态效果为主，确保各平台显示一致。</div>
+    </div>
+
+    <!-- 通用卡片 -->
+    <div class="mp-card">
+        <div class="mp-card-title"><span class="icon">★</span> 卡片标题</div>
+        <div class="mp-card-content">
+            这是一个通用卡片容器，可以放置任何内容。适合用于知识点总结、工具推荐、资源分享等场景。卡片带有轻微阴影和圆角，视觉上更加精致。
+        </div>
+    </div>
+
+    <!-- 装饰分割线 -->
+    <div class="mp-divider-fancy"></div>
+
+    <h1 class="mp-title-main">三、列表与表格</h1>
+
+    <h2 class="mp-title-sub">3.1 无序列表</h2>
+    <ul class="mp-list">
+        <li>支持多级嵌套，层级清晰</li>
+        <li>圆点标记，简洁大方</li>
+        <li>适配移动端阅读，行高舒适</li>
+        <li>可配合其他样式组合使用</li>
+    </ul>
+
+    <h2 class="mp-title-sub">3.2 有序列表</h2>
+    <ol class="mp-list-num">
+        <li>第一步：打开公众号后台，进入图文编辑页面</li>
+        <li>第二步：切换至 HTML 编辑模式（部分编辑器支持）</li>
+        <li>第三步：粘贴本模板代码，替换内容即可</li>
+        <li>第四步：预览检查，确认无误后发布</li>
+    </ol>
+
+    <h2 class="mp-title-sub">3.3 数据表格</h2>
+    <div class="mp-table-wrap">
+        <table class="mp-table">
+            <thead>
+                <tr>
+                    <th>样式名称</th>
+                    <th>适用场景</th>
+                    <th>推荐指数</th>
+                    <th>复杂度</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>主标题</td>
+                    <td>文章大标题</td>
+                    <td>⭐⭐⭐⭐⭐</td>
+                    <td>简单</td>
+                </tr>
+                <tr>
+                    <td>引用卡片</td>
+                    <td>名言警句</td>
+                    <td>⭐⭐⭐⭐⭐</td>
+                    <td>中等</td>
+                </tr>
+                <tr>
+                    <td>时间轴</td>
+                    <td>发展历程</td>
+                    <td>⭐⭐⭐⭐</td>
+                    <td>中等</td>
+                </tr>
+                <tr>
+                    <td>代码块</td>
+                    <td>技术教程</td>
+                    <td>⭐⭐⭐</td>
+                    <td>复杂</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mp-divider"><span>·</span></div>
+
+    <h1 class="mp-title-main">四、时间轴与问答</h1>
+
+    <h2 class="mp-title-sub">4.1 时间轴</h2>
+    <div class="mp-timeline">
+        <div class="mp-timeline-item">
+            <div class="mp-timeline-time">2024.01</div>
+            <div class="mp-timeline-content">项目启动，确定公众号定位与内容方向</div>
+        </div>
+        <div class="mp-timeline-item">
+            <div class="mp-timeline-time">2024.06</div>
+            <div class="mp-timeline-content">粉丝突破 10 万，开始商业化探索</div>
+        </div>
+        <div class="mp-timeline-item">
+            <div class="mp-timeline-time">2025.03</div>
+            <div class="mp-timeline-content">推出付费专栏，月营收突破 50 万</div>
+        </div>
+        <div class="mp-timeline-item">
+            <div class="mp-timeline-time">2026.05</div>
+            <div class="mp-timeline-content">发布全新排版系统，服务 1000+ 公众号</div>
+        </div>
+    </div>
+
+    <h2 class="mp-title-sub">4.2 问答样式</h2>
+    <div class="mp-qa">
+        <div class="mp-qa-q">
+            <span class="q-mark">Q</span>
+            <span>这个模板可以直接在公众号使用吗？</span>
+        </div>
+        <div class="mp-qa-a">
+            <span class="a-mark">A</span>
+            <span>可以。本模板采用纯 HTML + CSS 编写，兼容微信公众号编辑器。建议通过第三方排版工具（如秀米、135编辑器）导入，或直接在支持 HTML 的编辑器中使用。</span>
+        </div>
+    </div>
+    <div class="mp-qa">
+        <div class="mp-qa-q">
+            <span class="q-mark">Q</span>
+            <span>如何修改主题颜色？</span>
+        </div>
+        <div class="mp-qa-a">
+            <span class="a-mark">A</span>
+            <span>搜索并替换 CSS 中的 <code class="mp-code-inline">#07c160</code>（微信绿）为你需要的颜色值即可。所有颜色变量统一，修改一处，全局生效。</span>
+        </div>
+    </div>
+
+    <div class="mp-divider-fancy"></div>
+
+    <h1 class="mp-title-main">五、代码与进度</h1>
+
+    <h2 class="mp-title-sub">5.1 代码高亮</h2>
+    <pre class="mp-code"><span class="comment">// 微信公众号 API 调用示例</span>
+<span class="keyword">const</span> <span class="function">getAccessToken</span> = <span class="keyword">async</span> () => {
+    <span class="keyword">const</span> url = <span class="string">`https://api.weixin.qq.com/cgi-bin/token`</span>;
+    <span class="keyword">const</span> res = <span class="keyword">await</span> fetch(url);
+    <span class="keyword">return</span> res.json();
+};</pre>
+
+    <h2 class="mp-title-sub">5.2 进度条</h2>
+    <div class="mp-progress">
+        <div class="mp-progress-label">
+            <span>文章完成度</span>
+            <span>85%</span>
+        </div>
+        <div class="mp-progress-bar">
+            <div class="mp-progress-fill" style="width: 85%"></div>
+        </div>
+    </div>
+    <div class="mp-progress">
+        <div class="mp-progress-label">
+            <span>读者满意度</span>
+            <span>92%</span>
+        </div>
+        <div class="mp-progress-bar">
+            <div class="mp-progress-fill" style="width: 92%"></div>
+        </div>
+    </div>
+
+    <div class="mp-divider"><span>·</span></div>
+
+    <h1 class="mp-title-main">六、互动组件</h1>
+
+    <h2 class="mp-title-sub">6.1 投票组件</h2>
+    <div class="mp-vote">
+        <div class="mp-vote-title">你最喜欢的排版样式是？</div>
+        <div class="mp-vote-option">
+            <div class="radio"></div>
+            <span>卡片式布局</span>
+        </div>
+        <div class="mp-vote-option">
+            <div class="radio"></div>
+            <span>时间轴布局</span>
+        </div>
+        <div class="mp-vote-option">
+            <div class="radio"></div>
+            <span>杂志风排版</span>
+        </div>
+    </div>
+
+    <h2 class="mp-title-sub">6.2 打卡组件</h2>
+    <div class="mp-checkin">
+        <div class="mp-checkin-text">今日阅读打卡</div>
+        <div class="mp-checkin-days">128 <span>天</span></div>
+    </div>
+
+    <h2 class="mp-title-sub">6.3 引导在看</h2>
+    <div class="mp-wow">
+        <div class="mp-wow-text">觉得有用的话，点个「在看」吧</div>
+        <div class="mp-wow-icon">👍</div>
+    </div>
+
+    <div class="mp-divider-fancy"></div>
+
+    <h1 class="mp-title-main">七、底部区域</h1>
+
+    <h2 class="mp-title-sub">7.1 引导关注</h2>
+    <div class="mp-follow">
+        <div class="mp-follow-text">🔔 关注「Kimi设计工作室」</div>
+        <div class="mp-follow-sub">获取更多排版模板与运营技巧</div>
+    </div>
+
+    <h2 class="mp-title-sub">7.2 相关推荐</h2>
+    <div class="mp-related">
+        <div class="mp-related-title">猜你喜欢</div>
+        <div class="mp-related-item">
+            <div class="mp-related-thumb">封面</div>
+            <div class="mp-related-info">
+                <div class="title">2026年公众号运营全攻略：从0到10万粉的实战手册</div>
+                <div class="meta">阅读 5.2万 · 在看 1,230</div>
+            </div>
+        </div>
+        <div class="mp-related-item">
+            <div class="mp-related-thumb">封面</div>
+            <div class="mp-related-info">
+                <div class="title">排版美学：如何用视觉设计提升文章完读率</div>
+                <div class="meta">阅读 3.8万 · 在看 892</div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="mp-title-sub">7.3 小程序卡片</h2>
+    <div class="mp-miniprogram">
+        <div class="mp-miniprogram-icon">📱</div>
+        <div class="mp-miniprogram-info">
+            <div class="mp-miniprogram-name">排版助手 Pro</div>
+            <div class="mp-miniprogram-desc">一键生成精美排版，海量模板免费使用</div>
+        </div>
+        <div class="mp-miniprogram-arrow">›</div>
+    </div>
+
+    <h2 class="mp-title-sub">7.4 打赏区域</h2>
+    <div class="mp-reward">
+        <div class="mp-reward-text">如果这篇文章对你有帮助，欢迎打赏支持 ❤️</div>
+        <div class="mp-reward-btn">赞赏作者</div>
+    </div>
+
+    <!-- 精选留言 -->
+    <h2 class="mp-title-sub">7.5 精选留言</h2>
+    <div class="mp-comment-featured">
+        <div class="label">精选留言</div>
+        <div class="mp-comment">
+            <div class="mp-comment-avatar">A</div>
+            <div class="mp-comment-body">
+                <div class="mp-comment-name">Alice</div>
+                <div class="mp-comment-text">这个模板太实用了！直接复制就能用，省了好多排版时间 👍</div>
+                <div class="mp-comment-meta">作者回复：谢谢支持，会持续更新更多模板~</div>
+            </div>
+        </div>
+    </div>
+    <div class="mp-comment">
+        <div class="mp-comment-avatar">B</div>
+        <div class="mp-comment-body">
+            <div class="mp-comment-name">Bob</div>
+            <div class="mp-comment-text">时间轴和问答样式设计得很棒，已收藏！</div>
+            <div class="mp-comment-meta">2小时前 · 广东</div>
+        </div>
+    </div>
+
+    <!-- 底部信息 -->
+    <div class="mp-footer">
+        <div class="mp-footer-logo">K</div>
+        <div class="mp-footer-name">Kimi设计工作室</div>
+        <div class="mp-footer-desc">让每一篇文章都值得被阅读</div>
+        <div class="mp-footer-tags">
+            <span>公众号排版</span>
+            <span>视觉设计</span>
+            <span>内容运营</span>
+            <span>模板分享</span>
+        </div>
+    </div>
+
+    <!-- 二维码 -->
+    <div class="mp-qr-section">
+        <div class="mp-qr-box">二维码占位</div>
+        <div class="mp-qr-text">扫码关注，获取更多资源</div>
+    </div>
+
+    <!-- 阅读原文 -->
+    <div class="mp-read-more">
+        <div class="mp-read-more-text">👇 阅读原文，查看完整版模板</div>
+        <div class="mp-read-more-btn">阅读原文</div>
+    </div>
+
+</div>
+
+</body>
+</html>
